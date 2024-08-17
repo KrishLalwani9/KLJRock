@@ -1,0 +1,96 @@
+<!DOCTYPE HTML>
+<html lang='en'>
+<head>
+<meta charset='utf-8'>
+<title>Modal Example</title>
+<style>
+.background {
+justify-content:center;
+align-items:center;
+display:flex;
+border:1px solid black;
+visibility:visible;
+Position:absolute;
+margin:auto;
+width:100%;
+height:100%;
+background-color:#E0E0E0;
+opacity:0.5;
+}
+
+.transbox {
+opacity:1;
+background-color:white;
+border:1px solid black;
+width:40%;
+height:auto;
+padding:20px;
+}
+</style>
+
+<script>
+
+//KLJRock part starts here
+function $$$()
+{
+}
+$$$.modal=(someId)=>{
+var something=document.getElementById(someId);
+var obj1=document.createElement('div');
+var obj2=document.createElement('div');
+var image=document.createElement('img');
+image.src='/KLJRock/images/cross_image.jpg';
+image.addEventListener('click',()=>{
+obj1.remove();
+document.body.append(something);
+}
+);
+obj1.id='divSection';
+obj1.classList.add('background');
+obj2.classList.add('transbox');
+obj2.append(image);
+obj2.append(something.cloneNode(true));
+obj1.append(obj2);
+//document.body.innerHTML="";
+something.remove();
+document.body.append(obj1);
+};
+
+//KLJRock part ends here
+//KLJRock user script starts here
+function showXYZ()
+{
+$$$.modal("xyz");
+}
+function showPQR()
+{
+$$$.modal("pqr");
+}
+</script>
+</head>
+<body>
+<h1>This is modal Example</h1><br>
+<button type='button' style='margin:auto;display:flex' onclick='showXYZ()'>XYZ</button><br><br>
+<button type='button' style='margin:auto;display:flex' onclick='showPQR()'>PQR</button>
+
+<div id='xyz'>
+<b>Cool</b>
+<h1>Whatever</h1>
+Great<br>
+Something somethig
+</div> 	
+
+<table id='pqr'>
+<tr><td>Whatever1</td><td>Whatever11</td></tr>
+<tr><td>Whatever2</td><td>Whatever22</td></tr>
+<tr><td>Whatever3</td><td>Whatever33</td></tr>
+<tr><td>Whatever4</td><td>Whatever44</td></tr>
+<tr><td>Whatever5</td><td>Whatever55</td></tr>
+<tr><td>Whatever6</td><td>Whatever66</td></tr>
+<tr><td>Whatever7</td><td>Whatever77</td></tr>
+<tr><td>Whatever8</td><td>Whatever88</td></tr>
+<tr><td>Whatever9</td><td>Whatever99</td></tr>
+</table>
+
+</body>
+</html>
