@@ -1,0 +1,159 @@
+<!DOCTYPE HTML>
+<html lang='en'>
+<head>
+<title>AJAX Examples</title>
+<script>
+var formDetails;
+//KLJRock part starts here
+var $$$=(someId)=>{
+formDetails=document.getElementById(someId);
+//this part of code is your assignment
+return $$$;
+};
+
+$$$.isValid=(jsonObject)=>{
+var jsonObjectKeys=Object.keys(jsonObject);
+var jsonObjectValues=Object.values(jsonObject);
+
+let name=document.getElementsByName(jsonObjectKeys[0])[0];
+let address=document.getElementsByName(jsonObjectKeys[1])[0];
+let city=document.getElementsByName(jsonObjectKeys[2])[0];
+let gender=document.getElementsByName(jsonObjectKeys[3]);
+let agree=document.getElementsByName(jsonObjectKeys[4])[0];
+let errorSection;
+let errorObject;
+let valid=true;
+if(jsonObjectValues[0]['required'])
+{
+errorObject=jsonObjectValues[0]['errors'];
+errorSection=document.getElementById(jsonObjectValues[0]['error-pane']);
+errorSection.innerHTML="";
+if(name.value.length==0)
+{
+errorSection.innerHTML=errorObject['required'];
+valid=false;
+}
+else if(name.value.length>jsonObjectValues[0]['max-length'])
+{
+errorSection.innerHTML=errorObject['max-length'];
+valid=flase;
+}
+}
+if(jsonObjectValues[1]['required'])
+{
+errorSection=document.getElementById(jsonObjectValues[1]['error-pane']);
+errorSection.innerHTML='';
+if(address.value.length==0)
+{
+errorObject=jsonObjectValues[1]['errors'];
+errorSection.innerHTML=errorObject['required'];
+valid=flase;
+}
+}
+if(city.value==jsonObjectValues[2]['Invalid'])
+{
+errorSection=document.getElementById(jsonObjectValues[2]['error-pane']);
+errorSection.innerHTML='';
+errorObject=jsonObjectValues[2]['errors'];
+errorSection.innerHTML=errorObject['Invalid'];
+valid=flase;
+}
+if(jsonObjectValues[3]['required'])
+{
+errorSection=document.getElementById(jsonObjectValues[3]['error-pane']);
+errorSection.innerHTML='';
+if(gender[0].checked==false && gender[1].checked==false)
+{
+errorObject=jsonObjectValues[3]['errors'];
+errorSection.innerHTML=errorObject['required'];
+valid=flase;
+}
+}
+if(jsonObjectValues[4]['required-state'])
+{
+if(agree.checked==false)
+{
+if(jsonObjectValues[4]['display-alert'])
+{
+errorObject=jsonObjectValues[4]['errors'];
+alert(errorObject['required-state']);
+valid=flase;
+}
+}
+}
+return valid;
+};
+
+
+//KLJRock part ends here
+//KLJRock user script starts here 
+function doSomething(formId)
+{
+return $$$(formId).isValid({
+"nm" : {
+"required" : true,
+"max-length" : 20,
+"error-pane" : "nmErrorSection",
+"errors" : {
+"required" : "Name Required",
+"max-length" : "Name cannot exceed 20 characters"
+}
+},
+"ad" : {
+"required" : true,
+"error-pane" : "adErrorSection",
+"errors" : {
+"required" : "Address Required"
+}
+},
+"ct" : {
+"Invalid" : -1,
+"error-pane" : "ctErrorSection",
+"errors" : {
+"Invalid" : "Select City"
+}
+},
+"gender" : {
+"required" : true,
+"error-pane" : "genderErrorSection",
+"errors" : {
+"required" : "Select Gender"
+}
+},
+"agree" : {
+"required-state" : true,
+"display-alert" : true,
+"errors" : {
+"required-state" : "Select I agree Checkbox"
+}
+}
+});
+}
+</script>
+</head>
+<body>
+<h1>KLJRock Validitions</h1>
+<form id='someForm' action='watever' onsubmit='return doSomething("someForm")'>
+Name <input type='text' id='nm' name='nm'>
+<span id='nmErrorSection'></span><br>
+Address <textarea name='ad' id='ad'></textarea>
+<span id='adErrorSection'></span><br>
+Select City
+<select id='ct' name='ct'>
+<option value='-1'>&lt;select City&gt;</option>
+<option value='1'>Ujjain</option>
+<option value='2'>Dewas</option>
+<option value='3'>Bhopal</option>
+<option value='4'>Indore</option>
+</select>
+<span id='ctErrorSection'></span><br>
+Gender &nbsp;&nbsp;&nbsp;&nbsp;
+Male<input type='radio' id='ml' name='gender' value='M'>
+&nbsp;&nbsp;&nbsp;&nbsp;
+Female<input type='radio' id='fe' name='gender' value='F'>
+<span id='genderErrorSection'></span><br>
+I Agree<input type='checkBox' id='' name='agree' value='Y'><br>
+<button type='submit'>Register</button>
+</form>
+</body>
+</html>
