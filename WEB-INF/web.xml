@@ -59,5 +59,14 @@
 <url-pattern>/servletThree</url-pattern>
 </servlet-mapping>
 
+<servlet>
+<servlet-name>ServletOneEmployee</servlet-name>
+<servlet-class>com.krish.lalwani.hr.servlets.ServletOneEmployee</servlet-class>
+</servlet>
+<servlet-mapping>
+<servlet-name>ServletOneEmployee</servlet-name>
+<url-pattern>/servletOneEmployee</url-pattern>
+</servlet-mapping>
+
 
 </web-app>
