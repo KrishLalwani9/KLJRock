@@ -5,11 +5,12 @@
 <script>
 var formDetails;
 //KLJRock part starts here
+//function $$$(someId){
 var $$$=(someId)=>{
-formDetails=document.getElementById(someId);
+this.formDetails=document.getElementById(someId);
 //this part of code is your assignment
 return $$$;
-};
+}
 
 $$$.isValid=(jsonObject)=>{
 var jsonObjectKeys=Object.keys(jsonObject);

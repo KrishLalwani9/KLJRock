@@ -1,16 +1,11 @@
 //In this part TMJrock programmer should do something
-var $$$=()=>{
-};
-/*
-$$$.onDocumentLoaded=(load)=>{
-window.addEventListener('load',loadEventCall);
-};
-function loadEventCall(){
-return function(){
-alert('mymy');
-load()};
+function $$$()
+{
 }
-*/
+
+$$$.onDocumentLoaded=function(load){
+load();
+};
 $$$.grid=(someId,jsonObject)=>{
 let model= jsonObject['model'];
 let pagination=jsonObject['pagination'];
@@ -44,7 +39,7 @@ cloneRow.onclick=createRowClickHandler(cloneRow);
 cloneTableData=tableData.cloneNode();
 cloneTableData.innerHTML=i+1;
 cloneRow.appendChild(cloneTableData);
-var values=Object.values(data[i]);
+let values=Object.values(data[i]);
 for(let j=0;j<values.length;j++)
 {
 cloneTableData=tableData.cloneNode();
@@ -60,7 +55,7 @@ function createRowClickHandler(cloneRow)
 {
 return function(){selectRow(cloneRow)};
 }
-var selectedRow=null;
+let selectedRow=null;
 function selectRow(row)
 {
 if(rowSelectionEnabled)

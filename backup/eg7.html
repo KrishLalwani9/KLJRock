@@ -9,7 +9,7 @@
 function DataModel()
 {
 this.data=null;
-var columnTitles=[];
+let columnTitles=[];
 whatever();
 this.getRows=()=>{
 return this.data;
@@ -39,18 +39,18 @@ return columnTitles;
 };
 }
 
-var myDataModel=new DataModel();
+let myDataModel=new DataModel();
 
 function whatever()
 {
-var xmlHttpRequest=new XMLHttpRequest();
+let xmlHttpRequest=new XMLHttpRequest();
 xmlHttpRequest.onreadystatechange=function(){
 if(this.readyState==4)
 {
 if(this.status==200)
 {
-var responseData=this.responseText;
-var employees=JSON.parse(responseData);
+let responseData=this.responseText;
+let employees=JSON.parse(responseData);
 myDataModel.data=employees;
 }
 else
@@ -73,16 +73,10 @@ $$$.grid('someId',{
 'rowSelectionEnabled' : true
 });
 }
-/*
-function lodingFunction()
-{
-$$$.onDocumentLoaded('doSomething');
-}
-*/
 </script>
 </head>
 <body>
 <div id='someId' style='overflow:scroll'></div><br>
-<button type='button' onclick='doSomething()'>!click me</button>
+<button type='button' onclick='$$$.onDocumentLoaded(doSomething)'>!click me</button>
 </body>
 </html>
