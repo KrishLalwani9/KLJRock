@@ -62,8 +62,6 @@ $$$.ajax({
 "url" : "servletOne",
 "methodType" : "GET",
 "success" : function(responseData){
-alert(responseData);
-
 var designations=JSON.parse(responseData);
 var designationsComboBox=document.getElementById('designationsComboBox');
 var obj;
