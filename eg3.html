@@ -81,6 +81,25 @@ if(onFailure) onFailure();
 }
 }
 };
+let jsonData=jsonObject['data'];
+// we will change the code to traverse in jsonData
+if(jsonData)
+{
+let i=0;
+let queryString='';
+let qsName;
+let qsValue;
+for(let x in jsonData)
+{
+if(i>0) queryString+='&';
+else queryString+='?';
+qsName=encodeURI(x);
+qsValue=encodeURI(jsonData[x]);
+queryString+=qsName+'='+qsValue;
+i++;
+}
+url+=queryString;
+}
 xmlHttpRequest.open(methodType,url,true);
 xmlHttpRequest.send();
 }
@@ -99,7 +118,10 @@ let code=$$$("code").value();
 let titleSpan=$$$("title");
 titleSpan.html("");
 $$$.ajax({
-"url" : "servletTwo?code="+encodeURI(code),
+"url" : "servletTwo",
+"data" : {
+"code" : code
+},
 "methodType" : "GET",
 "success" : function(responseData){
 if(responseData=='Invalid')
