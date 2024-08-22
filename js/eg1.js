@@ -1,47 +1,48 @@
 //This will finally be part of KLJRock Javascript library
-var $$$=(parameter)=>{
-var designationsComboBox=document.getElementById(parameter);
+let $$$=(parameter)=>{
+let element=document.getElementById(parameter);
 //this part of code is your assignment
-return $$$;
+return new KLJRockElement(element);
 };
-
-$$$.fillComboBox=(jsonObject)=>{
-var designationsData=jsonObject.dataSource;
-var optionText=jsonObject.text;
-var optionValue=jsonObject.value;
-var firstOption=jsonObject.firstOption;
-var firstOptionText=firstOption.text;
-var firstOptionValue=firstOption.value;
-var object;
+function KLJRockElement(element)
+{
+this.fillComboBox=(jsonObject)=>{
+let designationsData=jsonObject.dataSource;
+let optionText=jsonObject.text;
+let optionValue=jsonObject.value;
+let firstOption=jsonObject.firstOption;
+let firstOptionText=firstOption.text;
+let firstOptionValue=firstOption.value;
+let object;
 object=document.createElement("option");
 object.text=firstOptionText;
 object.value=firstOptionValue;
-designationsComboBox.appendChild(object);
+element.appendChild(object);
 for(let i=0;i<designationsData.length;i++)
 {
 object=document.createElement("option");
 object.text=designationsData[i][optionText];
 object.value=designationsData[i][optionValue];
-designationsComboBox.appendChild(object);
+element.appendChild(object);
 }
 };
-
+}
 $$$.ajax=(httpParser)=>{ //we can dynamically add properties in javascript and assign value to them
-var url;
-var methodType;
-var success;
-var failuer;
+let url;
+let methodType;
+let success;
+let failuer;
 url=httpParser.url;
 methodType=httpParser.methodType;
 success=httpParser.success;
 failure=httpParser.failure;
-var xmlHttpRequest=new XMLHttpRequest();
+let xmlHttpRequest=new XMLHttpRequest();
 xmlHttpRequest.onreadystatechange=function(){
 if(this.readyState==4)
 {
 if(this.status==200)
 {
-var responseData=this.responseText;
+let responseData=this.responseText;
 success(responseData);
 }
 else
@@ -63,8 +64,8 @@ $$$.ajax({
 "url":"servletOne",
 "methodType":"GET",
 "success":function(responseData){
-var designations=JSON.parse(responseData);
-var titleString="title";
+let designations=JSON.parse(responseData);
+let titleString="title";
 $$$("designationsComboBox").fillComboBox({
 "dataSource" : designations,
 "text" : "title",

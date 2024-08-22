@@ -32,6 +32,51 @@ return this.element.value;
 }
 return null;
 };//value function ends here
+//fillComboBox function starts here
+this.fillComboBox=(jsonObject)=>{
+if(this.element.nodeName!='SELECT') throw "fillComboBox can be called on SELECT type element";
+let collection=jsonObject['dataSource'];
+let optionText=jsonObject['text'];
+let optionValue=jsonObject['value'];
+let firstOption=jsonObject['firstOption'];
+let firstOptionText=firstOption['text'];
+let firstOptionValue=firstOption['value'];
+
+if(!collection) throw "dataSource required";
+if((typeof collection)!='object') throw "collection must have of object type";
+
+if(!optionText) throw "text required";
+if((typeof optionText)!='string') throw "optionText must have of string type";
+
+if(!optionValue) throw "value required";
+if((typeof optionValue)!='string') throw "optionValue must have of string type";
+
+if(!firstOption) throw "firlstOption required";
+if((typeof firstOption)!='object') throw "firstOption must have of object type";
+if(!firstOptionText) throw "firstOption mush have text property";
+if(!firstOptionValue) throw "firstOption mush have value property";
+if((typeof firstOptionText)!='string') throw "firstOptionText mush have of string type";
+if((typeof firstOptionValue)!='string') throw "firstOption mush have of string type";
+if(collection.length)
+{ 
+if(!collection[0][optionText]) throw "Invalid text";
+if(!collection[0][optionValue]) throw "Invalid value";
+}
+this.element.innerHTML='';
+let object;
+object=document.createElement("option");
+object.text=firstOptionText;
+object.value=firstOptionValue;
+
+this.element.appendChild(object);
+for(let i=0;i<collection.length;i++)
+{
+object=document.createElement("option");
+object.text=collection[i][optionText];
+object.value=collection[i][optionValue];
+this.element.appendChild(object);
+}
+}; //fill comboBox function ends here
 }//class KLJRockElement ends here
 
 
@@ -161,34 +206,3 @@ xmlHttpRequest.send(queryString);
 };
 
 //KLJRock part ends here
-
-
-
-function saveEnquiry()
-{
-let firstName=$$$('firstName').value();
-let lastName=$$$('lastName').value();
-let age=$$$('age').value();
-let customerJson={
-"firstName": firstName,
-"lastName": lastName,
-"age": age
-};
-$$$.ajax({
-"url" : "servletThree",
-//"url" : "servletThreeWithoutParsing",
-"data" : customerJson,
-"sendJSON" : true,
-"methodType" : "POST",
-"success" : function(responseData){
-let section=$$$('whatever');
-section.html("");
-let customer=JSON.parse(responseData);
-let a='<br>firstname : '+customer.firstName+'<br>lastName : '+customer.lastName+'<br>age : '+customer.age;
-section.html(a);
-},
-"failure" : function(){
-alert('something wrong');
-}
-});
-}

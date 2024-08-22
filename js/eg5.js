@@ -1,17 +1,46 @@
-function $$$()
+function $$$(elementId)
 {
-alert(document.body.innerHTML);
+let element=document.getElementById(elementId);
+if(!element) throw "Invalid id "+elementId;
+return new KLJRockElement(element);
 }
-$$$.onDocumentLoaded=(address)=>{
-address();
+
+function KLJRockElement(element)
+{
+this.element=element;
+this.sendContent=function(heading,collection){
+let content=collection.get(heading);
+heading.remove();
+alert(content.innerHTML);
+alert(heading.innerHTML);
+document.body.append(content);
 };
 
-$$$.toAccordian=(divId)=>{
+this.sendContentForce=function(heading,collection){
+return function(){
+sendContent(heading,collection);
+};
+};
+this.toAccordian=()=>{
+let elementChildrens=Object.values(this.element.children);
 
-setTimeout(() => {
-  console.log("Delayed for 1 second.");
-var section=document.getElementById(divId);
-section.remove();
+//travers on children and storing content against heading
+let collection = new Map();
+let heading;
+
+for(let x=0;x<elementChildrens.length;x++)
+{
+let elementChildren=elementChildrens[x];
+heading=elementChildren.children[0];
+let headingCloneNode=heading.cloneNode(true);
+collection.set(headingCloneNode,elementChildren);
+document.body.appendChild(headingCloneNode);
+alert(headingCloneNode.innerHTML);
+heading.addEventListener('click',this.sendContentForce(headingCloneNode,collection));
+elementChildren.remove();
+}
+
+/*
 let div1 =section.children[0];
 let div2 =section.children[1];
 let div3 =section.children[2];
@@ -57,10 +86,11 @@ document.body.append(heading2);
 document.body.append(heading3);
 document.body.append(div3);
 });
-}, "0.1");
-};
-window.addEventListener('load',$$$.onDocumentLoaded(function(){
-$$$.toAccordian("mymy");
-}));
+*/
+}; //toAccordianFunction Ends here
+}
+setTimeout(()=>{
+window.addEventListener('load',$$$("mymy").toAccordian());
+},10);
 
 //KLJRock part ends here
