@@ -19,6 +19,22 @@ $$$.model.onStartup[$$$.model.onStartup.length]=func;
 
 //its work to call all the functions populated in onStartup array
 $$$.initFramework=function(){ 
+let allTags=document.getElementsByTagName("*");
+let tag=null;
+let accord=null;
+for(let x=0;x<allTags.length;x++)
+{
+tag=allTags[x];
+if(tag.hasAttribute("accordian"))
+{
+accord=tag.getAttribute("accordian");
+if(accord=="true")
+{
+$$$.toAccordian(tag);
+}
+}
+
+}
 for(let x=0;x<$$$.model.onStartup.length;x++)
 {
 $$$.model.onStartup[x]();
@@ -38,8 +54,8 @@ $$$.model.accordians[accordianIndex].expandedIndex=panelIndex+1;
 };
 
 
-$$$.toAccordian=(aid)=>{
-let accord=document.getElementById(aid);
+$$$.toAccordian=(accord)=>{
+alert(accord);
 let expandedIndex=-1;
 let panels =[];
 let childrens=accord.childNodes;

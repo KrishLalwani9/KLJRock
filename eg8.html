@@ -1,0 +1,23 @@
+<!DOCTYPE HTML>
+<html lang='en'>
+<head>
+<meta charset='utf-8'>
+<title>Some Example</title>
+<script>
+window.addEventListener('load',function(){
+let elements=document.getElementsByTagName('*');
+alert(elements.length);
+for(let x=0;x<elements.length;x++) alert(elements[x].nodeName);
+});
+</script>
+</head>
+<body>
+<div>
+<h1></h1>
+<b></b>
+<u><i></i></u>
+<span></span>
+<table><tr><td></td><td></td></tr></table>
+</div>
+</body>
+</html>
