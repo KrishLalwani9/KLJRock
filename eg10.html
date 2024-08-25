@@ -82,6 +82,9 @@ contentParentReference.insertBefore(contentReference,contentParentReference.chil
 if(objectAddress.onClose) objectAddress.onClose();
 };
 
+let areaClose=contentReference.getAttribute('areaClose');
+if(areaClose=="true")
+{
 modalMaskDivision.onclick=()=>{
 contentReference.remove();
 modalMaskDivision.remove();
@@ -93,7 +96,7 @@ contentParentReference.insertBefore(contentReference,contentParentReference.chil
 }
 if(objectAddress.onClose) objectAddress.onClose();
 };
-
+}
 }//Modal function ends here
 
 
