@@ -23,17 +23,17 @@ $$$.model.onStartup[$$$.model.onStartup.length]=func;
 //its work to call all the functions populated in onStartup array
 $$$.initFramework=function(){ 
 let allTags=document.getElementsByTagName("*");
-let tagone=null;
+let tag=null;
 let accord=null;
 for(let x=0;x<allTags.length;x++)
 {
-tagone=allTags[x];
-if(tagone.hasAttribute("accordian"))
+tag=allTags[x];
+if(tag.hasAttribute("accordian"))
 {
-accord=tagone.getAttribute("accordian");
-if(accord=="true")
+accord=tag.getAttribute("accordian");
+if(accord.toUpperCase()=="TRUE")
 {
-$$$.toAccordian(tagone);
+$$$.toAccordian(tag);
 }
 }
 }
@@ -43,10 +43,9 @@ $$$.model.onStartup[x]();
 }
 
 //setting up modal part starts here
-let allElements=document.getElementsByTagName("*");
-for(let i=0;i<allElements.length;i++)
+for(let i=0;i<allTags.length;i++)
 {
-let tag=allElements[i]; //conflict optimize it
+tag=allTags[i]; //conflict optimize it
 if(tag.hasAttribute("forModal"))
 {
 if(tag.getAttribute("forModal").toUpperCase()=="TRUE")
