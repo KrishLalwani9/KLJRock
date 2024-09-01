@@ -1,0 +1,287 @@
+<!DOCTYPE HTML>
+<html lang='en'>
+<head>
+<meta charset='utf=8'>
+<title>Protoytyping KLJRock_Grid</title>
+<!-- KLJRock specific styling -->
+<style>
+.kljrock_klgrid_header_division{
+overflow-x : hidden;
+overflow-y : hidden;
+width : 385px;
+}
+.kljrock_klgrid_body_division{
+overflow-x : scroll;
+overflow-y : scroll;
+width : 400px;
+height : 450px; 
+}
+
+
+.kljrock_klgrid_head{
+border : 1px groove green;
+border-bottom : 0px groove green;
+border-spacing : 0px;
+border-collapse : collapse;
+background : lightgray;
+width : 744px;
+}
+.kljrock_klgrid_head td
+{
+border-left : 1px groove black;
+border-right : 1px groove black;
+border-top : 1px groove black;
+border-bottom : 0px groove black;
+width : 50px;
+text-align : right;
+}
+.kljrock_klgrid_head td+td
+{
+width : 150px;
+text-align : left;
+}
+.kljrock_klgrid_head td+td+td
+{
+width : 200px;
+text-align : left;
+}
+.kljrock_klgrid_head td+td+td+td
+{
+width : 200px;
+text-align : left;
+}
+.kljrock_klgrid_body td+td+td+td+td
+{
+width : 200px;
+text-align : left;
+}
+
+
+
+.kljrock_klgrid_body{
+border : 1px groove green;
+border-spacing : 0px;
+border-collapse : collapse;
+width : 750px;
+}
+.kljrock_klgrid_body td
+{
+border : 1px groove black;
+width : 50px;
+text-align : right;
+}
+.kljrock_klgrid_body td+td
+{
+width : 150px;
+text-align : left;
+}
+.kljrock_klgrid_body td+td+td
+{
+width : 200px;
+text-align : left;
+}
+.kljrock_klgrid_body td+td+td+td
+{
+width : 200px;
+text-align : left;
+}
+.kljrock_klgrid_body td+td+td+td+td
+{
+width : 200px;
+text-align : left;
+}
+.kljrock_klgrid_pagination td
+{
+width : 40px;
+text-align : center;
+}
+.kljrock_klgrid_pagination_division{
+margin-top : 20px;
+}
+.kljrock_klgrid_pagination_division a{
+background : purple;
+color : white;
+padding : 8px 15px;
+text-decoration : none;
+text-transform : uppercase;
+}
+</style>
+<script>
+class Student
+{
+constructor(rollNumber,name,nameOfMother,nameOfFather)
+{
+this.rollNumber=rollNumber;
+this.name=name;
+this.nameOfMother=nameOfMother;
+this.nameOfFather=nameOfFather;
+}
+}
+class Grid
+{
+constructor(dataTableId,dataTablePaginationId,students,pageSize)
+{
+this.dataTableId=dataTableId;
+this.dataTablePaginationId=dataTablePaginationId;
+this.students=students;
+this.pageSize=pageSize;
+this.pageNumber=11;
+this.numberOfPaginationControls=5;
+this.update(); //for updating table
+this.updatePagination()
+}
+setPage(pageNumber){
+this.pageNumber=pageNumber;
+this.update();
+this.updatePagination();
+return false;
+}
+update()
+{
+let dataTableId=document.getElementById(this.dataTableId);
+while(dataTableId.rows.length>0) dataTableId.deleteRow(0);
+let tr;
+let td;
+let startFrom=(this.pageNumber-1)*this.pageSize;
+let endAt=startFrom+this.pageSize-1;
+if(endAt>=this.students.length) endAt=this.students.length-1;
+for(let i=startFrom;i<=endAt;i++)
+{
+tr=document.createElement('tr');
+td=document.createElement('td');
+td.innerHTML=i+1;
+tr.appendChild(td);
+td=document.createElement('td');
+td.innerHTML=this.students[i].rollNumber;
+tr.appendChild(td);
+td=document.createElement('td');
+td.innerHTML=this.students[i].name;
+tr.appendChild(td);
+td=document.createElement('td');
+td.innerHTML=this.students[i].nameOfMother;
+tr.appendChild(td);
+td=document.createElement('td');
+td.innerHTML=this.students[i].nameOfFather;
+tr.append(td);
+dataTableId.appendChild(tr);
+}
+}
+updatePagination()
+{
+function createPageChangeFunction(obj,pageNumber)
+{
+return function(){
+obj.setPage(pageNumber);
+};
+}
+let dataTablePaginationId=document.getElementById(this.dataTablePaginationId);
+while(dataTablePaginationId.rows.length>0) dataTablePaginationId.deleteRow(0);
+
+let td;
+let anchor;
+let tr=document.createElement('tr');
+let startFrom=(Math.floor((this.pageNumber-1)/this.numberOfPaginationControls)*this.numberOfPaginationControls+1);
+let endAt=startFrom+this.numberOfPaginationControls-1; 
+let numberOfPages=Math.floor(this.students.length/this.pageSize);
+if(this.students.length%this.pageSize!=0) numberOfPages++;
+if(endAt>numberOfPages) endAt=numberOfPages;
+if(startFrom>1)
+{
+td=document.createElement('td');
+anchor=document.createElement('a');
+anchor.text="prev";
+anchor.href="javaScript:void(0)";
+anchor.onclick=createPageChangeFunction(this,startFrom-1);
+td.appendChild(anchor);
+tr.appendChild(td);
+}
+for(let i=startFrom;i<=endAt;i++)
+{
+td=document.createElement('td');
+if(i==this.pageNumber)
+{
+td.innerHTML="<b>"+i+"<b>";
+}
+else
+{
+anchor=document.createElement("a");
+anchor.text=i;  
+anchor.href="javaScript:void(0)";
+anchor.onclick=createPageChangeFunction(this,i);
+td.appendChild(anchor);;
+}
+tr.appendChild(td);
+}
+if(endAt<numberOfPages)
+{
+td=document.createElement('td');
+anchor=document.createElement('a');
+anchor.text="next";
+anchor.href="javaScript:void(0)";
+anchor.onclick=createPageChangeFunction(this,endAt+1);
+td.appendChild(anchor);
+tr.appendChild(td);
+}
+dataTablePaginationId.appendChild(tr);
+}
+}
+
+
+var model={
+"grid" : null
+};
+
+function loader()
+{
+let kljrock_klgrid_body_division =document.querySelector('.kljrock_klgrid_body_division');
+let kljrock_klgrid_header_division =document.querySelector('.kljrock_klgrid_header_division');
+kljrock_klgrid_body_division.addEventListener('scroll',function(){
+kljrock_klgrid_header_division.scrollLeft=kljrock_klgrid_body_division.scrollLeft;
+});
+
+let students=new Array();
+for(let i=100;i<1001;i++)
+{
+students.push(new Student(i,i+" Name",i+" Mother",i+" Father"));
+}
+model.grid=new Grid('dataTableId','dataTablePaginationId',students,35);
+}
+
+window.addEventListener('load',loader);
+
+</script>
+
+<!-- user specific styling -->
+<style>
+.someClass{
+width : 900px;
+height : 550px;
+border : 1px solid black;
+overflow : auto;
+}
+</style>
+</head>
+<body>
+<div class='someClass'>
+<div class="kljrock_klgrid_header_division">
+<table class="kljrock_klgrid_head">
+<tr>
+<td>S.NO</td>
+<td>Roll.No</td>
+<td>Name</td>
+<td>Mother's Name</td>
+<td>Father's Name</td>
+</tr>
+</table>
+</div>
+<div class="kljrock_klgrid_body_division">
+<table class="kljrock_klgrid_body" id="dataTableId">
+</table>
+</div>
+<div class="kljrock_klgrid_pagination_division">
+<table class="kljrock_klgrid_pagination" id="dataTablePaginationId">
+</table>
+</div>
+</div>
+</body>
+</html>
