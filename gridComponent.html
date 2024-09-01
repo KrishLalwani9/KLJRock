@@ -1,0 +1,82 @@
+<!DOCTYPE HTML>
+<html lang='en'>
+<head>
+<title>AJAX Examples</title>
+<meta charset='utf-8'>
+<script src='/KLJRock/js/eg7.js'></script>
+<script>
+// The following code is being written by the TMJRock user
+function DataModel()
+{
+this.data=null;
+let columnTitles=[];
+whatever();
+this.getRows=()=>{
+return this.data;
+};
+this.getRowCount=()=>{
+if(this.data==null) return 0;
+else return this.data.length;
+};
+this.getColumnCount=()=>{
+return columnTitles.length;
+};
+this.getColumnTitle=()=>{ 
+columnTitles[0]='S.NO';
+columnTitles[1]='Id.';
+columnTitles[2]='Name';
+columnTitles[3]='Designation Code';
+columnTitles[4]='Designation';
+columnTitles[5]='Date Of Birth';
+columnTitles[6]='Gender';
+columnTitles[7]='Is Indian';
+columnTitles[8]='Basic Salary';
+columnTitles[9]='PAN Number';
+columnTitles[10]='Aadhar Card Number';
+columnTitles[11]='Edit';
+columnTitles[12]='Delete';
+return columnTitles; 
+};
+}
+
+let myDataModel=new DataModel();
+
+function whatever()
+{
+let xmlHttpRequest=new XMLHttpRequest();
+xmlHttpRequest.onreadystatechange=function(){
+if(this.readyState==4)
+{
+if(this.status==200)
+{
+let responseData=this.responseText;
+let employees=JSON.parse(responseData);
+myDataModel.data=employees;
+}
+else
+{
+alert('some problem');
+}
+}
+};
+xmlHttpRequest.open("GET",'servletOneEmployee',true);
+xmlHttpRequest.send();
+//code to populate myDataModel with data (list of objects)
+}
+
+function doSomething()
+{
+$$$.grid('someId',{
+'model' : myDataModel,
+'pagination' : true,
+'pageSize' : 10,
+'rowSelectionEnabled' : true
+});
+}
+</script>
+</head>
+<body>
+<div id='someId' style='overflow:scroll'></div><br>
+<button type='button' onclick='$$$.onDocumentLoaded(doSomething)'>!click me</button>
+</body>
+</html>
