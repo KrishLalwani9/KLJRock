@@ -3,6 +3,88 @@
 <head>
 <title>KLJRock</title>
 <meta charset='utf-8'>
+<!-- user specific styling of KLJRockGrid-->
+<style>
+
+.kljrock_klgrid_header_division{
+overflow-x : hidden;
+overflow-y : hidden;
+width : 685px;
+}
+.kljrock_klgrid_body_division{
+overflow-x : scroll;
+overflow-y : scroll;
+width : 700px;
+height : 450px; 
+}
+
+
+.kljrock_klgrid_head{
+border : 1px groove green;
+border-bottom : 0px groove green;
+border-spacing : 0px;
+border-collapse : collapse;
+background : lightgray;
+width : 750px;
+}
+.kljrock_klgrid_head td
+{
+border-left : 1px groove black;
+border-right : 1px groove black;
+border-top : 1px groove black;
+border-bottom : 0px groove black;
+width : 50px;
+text-align : right;
+}
+.kljrock_klgrid_head td+td
+{
+width : 150px;
+text-align : left;
+}
+
+.kljrock_klgrid_body{
+border : 1px groove green;
+border-spacing : 0px;
+border-collapse : collapse;
+width : 750px;
+}
+.kljrock_klgrid_body td
+{
+border : 1px groove black;
+width : 50px;
+text-align : right;
+}
+.kljrock_klgrid_body td+td
+{
+width : 150px;
+text-align : left;
+}
+.kljrock_klgrid_pagination td
+{
+width : 40px;
+text-align : center;
+}
+.kljrock_klgrid_pagination_division{
+margin-top : 10px;
+}
+.kljrock_klgrid_pagination_division a{
+background : purple;
+color : white;
+padding : 8px 15px;
+text-decoration : none;
+text-transform : uppercase;
+}
+
+
+.someClass{
+width : 900px;
+height : 550px;
+border : 1px solid black;
+overflow : auto;
+}
+</style>
+
+
 <script src='/KLJRock/js/KLJRock.js'></script>
 <link rel='stylesheet' type='text/css' href='/KLJRock/css/KLJRock.css'>
 <script>
@@ -21,6 +103,7 @@ function xyz()
 {
 alert(document.getElementById("myTextBox"));
 }
+//forModal user script ends here
 
 //for accordian
 /* Done it by another way
@@ -30,6 +113,28 @@ $$$.toAccordian('mymy');
 $$$.toAccordian('gojo');
 });
 */
+
+//KLJRockGrid user script starts here
+
+function populateEmployees(){
+var employees=null;
+$$$.ajax({
+"url" : "servletOneEmployee",
+//"url" : "servletOne",
+"methodType" : "GET",
+"success" : function(responseData){
+employees=JSON.parse(responseData);
+$$$.model.grid=new Grid('mainDivision','dataTableId',employees,2);
+},
+"failure":function(){
+alert('Something wrong');
+}
+});
+}
+$$$.onDocumentLoaded(function(){
+populateEmployees();
+});
+//KLJRockGrid user script ends here
 
 //for fillComboBox
 
@@ -197,12 +302,41 @@ One
 <h1>Ujjain is the city of gods</h1>
 </div>
 <button type='button' onclick='xyz()'>xyz</button>
+<!-- modal part ends here -->
 
 <!-- fillComboBox part -->
 <h1>Get type example with json</h1><br>
 Designations
 <select id='designationsComboBox'>
 </select>
+<!-- fill ComboBox part ends here -->
+
+<!-- KLJRock grid part starts here -->
+<div id='mainDivision' class='someClass'>
+<div class="kljrock_klgrid_header_division">
+<table id='headingId'>
+<tr>
+<td>S.NO</td>
+<td>Roll.No</td>
+<td>Name</td>
+<td>Designation Id.</td>
+<td>Designation</t>
+<td>Date of Birth</td>
+<td>Gender</td>
+<td>Is Indian</td>
+<td>Basic Salary</td>
+<td>Pan Number</td>
+<td>Aadhar Card Number</td>
+</tr>
+</table>
+</div>
+<div class="kljrock_klgrid_body_division">
+<table  id="dataTableId">
+</table>
+</div>
+</div>
+</body>
+<!-- KLJRock grid part ends here -->
 
 </body>
 </html>

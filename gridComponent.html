@@ -3,14 +3,13 @@
 <head>
 <title>AJAX Examples</title>
 <meta charset='utf-8'>
-<script src='/KLJRock/js/eg7.js'></script>
+<script src='/KLJRock/js/gridComponent.js'></script>
 <script>
 // The following code is being written by the TMJRock user
 function DataModel()
 {
 this.data=null;
 let columnTitles=[];
-whatever();
 this.getRows=()=>{
 return this.data;
 };
@@ -41,6 +40,37 @@ return columnTitles;
 
 let myDataModel=new DataModel();
 
+
+function populateEmployees()
+{
+$$$.ajax({
+"url" : "servletOneEmployee",
+"methodType" : "GET",
+"success" : function(responseData){
+let employees=JSON.parse(responseData);
+//let titleString="title";
+myDataModel.data=employees;
+/*
+$$$("designationsComboBox").fillComboBox({
+"dataSource" : designations,
+"text" : "title",
+"value" : "code",
+"firstOption" : {
+"text" : "<select desigantion>",
+"value" : "-1"
+}});
+*/
+},
+"failure":function(){
+alert('some problem');
+}
+});
+}
+$$$.onDocumentLoaded(function(){
+populateEmployees();
+});
+
+/*
 function whatever()
 {
 let xmlHttpRequest=new XMLHttpRequest();
@@ -63,6 +93,7 @@ xmlHttpRequest.open("GET",'servletOneEmployee',true);
 xmlHttpRequest.send();
 //code to populate myDataModel with data (list of objects)
 }
+*/
 
 function doSomething()
 {

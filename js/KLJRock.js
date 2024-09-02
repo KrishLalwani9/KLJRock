@@ -1,3 +1,4 @@
+
 //KLJRock part starts here
 function $$$(elementId)
 {
@@ -9,9 +10,136 @@ return new KLJRockElement(element);
 $$$.model={
 "onStartup" : [],
 "accordians" : [],
-"modals" : []
+"modals" : [],
+"grid" : "null"
 };
+//KLJRockGrid part starts here
+class Grid
+{
+constructor(mainDivision,dataTableId,dataSource,pageSize)
+{
+this.heading=document.querySelector('.kljrock_klgrid_header_division').children[0];
+this.heading.classList.add('kljrock_klgrid_head');
+this.mainDivision=mainDivision;
+this.dataTableId=dataTableId;
+this.dataSource=dataSource;
+this.createPaginationDivision();
+this.pageSize=pageSize;
+this.pageNumber=1;
+this.numberOfPaginationControls=5;
+this.update(); //for updating table
+this.updatePagination()
+}
 
+createPaginationDivision(){
+this.dataTablePaginationDivision=document.createElement('div');
+this.dataTablePaginationDivision.classList.add('kljrock_klgrid_pagination_division');
+this.dataTablePagination=document.createElement('table');
+this.dataTablePagination.classList.add("kljrock_klgrid_pagination");
+this.dataTablePaginationDivision.appendChild(this.dataTablePagination);
+document.getElementById(this.mainDivision).appendChild(this.dataTablePaginationDivision);
+}
+
+setPage(pageNumber){
+this.pageNumber=pageNumber;
+this.update();
+this.updatePagination();
+return false;
+}
+update()
+{
+var calLength;
+let dataTableId=document.getElementById(this.dataTableId);
+dataTableId.classList.add("kljrock_klgrid_body");
+while(dataTableId.rows.length>0) dataTableId.deleteRow(0);
+let tr;
+let td;
+let startFrom=(this.pageNumber-1)*this.pageSize;
+let endAt=startFrom+this.pageSize-1;
+if(endAt>=this.dataSource.length) endAt=this.dataSource.length-1;
+for(let i=startFrom;i<=endAt;i++)
+{
+tr=document.createElement('tr');
+td=document.createElement('td');
+td.innerHTML=i+1;
+tr.appendChild(td);
+let values=Object.values(this.dataSource[i]);
+calLength=values.length*150;
+for(let j=0;j<values.length;j++)
+{
+td=document.createElement('td'); 
+td.innerHTML=values[j];
+
+tr.appendChild(td);
+}
+dataTableId.appendChild(tr);
+}
+dataTableId.style.width=calLength+"px";
+this.heading.style.width=(calLength-5)+"px";
+}
+updatePagination()
+{
+function createPageChangeFunction(obj,pageNumber)
+{
+return function(){
+obj.setPage(pageNumber);
+};
+}
+//let dataTablePaginationId=document.getElementById(this.dataTablePaginationId);
+let dataTablePaginationId=this.dataTablePagination;
+while(dataTablePaginationId.rows.length>0) dataTablePaginationId.deleteRow(0);
+
+let td;
+let anchor;
+let tr=document.createElement('tr');
+let startFrom=(Math.floor((this.pageNumber-1)/this.numberOfPaginationControls)*this.numberOfPaginationControls+1);
+let endAt=startFrom+this.numberOfPaginationControls-1; 
+let numberOfPages=Math.floor(this.dataSource.length/this.pageSize);
+if(this.dataSource.length%this.pageSize!=0) numberOfPages++;
+if(endAt>numberOfPages) endAt=numberOfPages;
+if(startFrom>1)
+{
+td=document.createElement('td');
+anchor=document.createElement('a');
+anchor.text="prev";
+anchor.href="javaScript:void(0)";
+anchor.onclick=createPageChangeFunction(this,startFrom-1);
+td.appendChild(anchor);
+tr.appendChild(td);
+}
+for(let i=startFrom;i<=endAt;i++)
+{
+td=document.createElement('td');
+if(i==this.pageNumber)
+{
+td.innerHTML="<b>"+i+"<b>";
+}
+else
+{
+anchor=document.createElement("a");
+anchor.text=i;  
+anchor.href="javaScript:void(0)";
+anchor.onclick=createPageChangeFunction(this,i);
+td.appendChild(anchor);;
+}
+tr.appendChild(td);
+}
+if(endAt<numberOfPages)
+{
+td=document.createElement('td');
+anchor=document.createElement('a');
+anchor.text="next";
+anchor.href="javaScript:void(0)";
+anchor.onclick=createPageChangeFunction(this,endAt+1);
+td.appendChild(anchor);
+tr.appendChild(td);
+}
+dataTablePaginationId.appendChild(tr);
+}
+}
+//KLJRockGrid part ends here
+
+//modals part starts here
 $$$.modals={};
 
 //its work to populate all the functions in onStartup array
@@ -41,7 +169,6 @@ for(let x=0;x<$$$.model.onStartup.length;x++)
 {
 $$$.model.onStartup[x]();
 }
-
 //setting up modal part starts here
 for(let i=0;i<allTags.length;i++)
 {
@@ -56,6 +183,14 @@ i--;
 }
 }
 }
+//setting up modal part starts here
+//setting up gird part starts here
+let kljrock_klgrid_body_division =document.querySelector('.kljrock_klgrid_body_division');
+let kljrock_klgrid_header_division =document.querySelector('.kljrock_klgrid_header_division');
+kljrock_klgrid_body_division.addEventListener('scroll',function(){
+kljrock_klgrid_header_division.scrollLeft=kljrock_klgrid_body_division.scrollLeft;
+});
+//setting up grid part starts here
 };//inintFramework ends here
 
 
@@ -283,7 +418,8 @@ eval(objectAddress.afterClosing);
 }
 };
 }
-}//Modal function ends here
+}
+//Modal function ends here
 
 function abOpened(){
 alert('Modal will be opned');
@@ -307,8 +443,8 @@ $$$.initFramework();
 
 //Modal specifit code ends here
 
+//acordian specifit code ends here
 $$$.acordianHeadingClicked=function(accordianIndex,panelIndex){
-alert(accordianIndex+','+panelIndex);
 if($$$.model.accordians[accordianIndex].expandedIndex!=-1) $$$.model.accordians[accordianIndex].panels[$$$.model.accordians[accordianIndex].expandedIndex].style.display='none';
 //panels[panelIndex+1].style.display='inline'; or block
 $$$.model.accordians[accordianIndex].panels[panelIndex+1].style.display=$$$.model.accordians[accordianIndex].panels[panelIndex+1].oldDisplay;
@@ -347,7 +483,8 @@ $$$.model.accordians[accordianIndex]={
 "expandedIndex" : -1
 };
 
-}; //toAccordianFunction Ends here
+}; 
+//toAccordianFunction Ends here
 
 
 function KLJRockElement(element)
@@ -375,6 +512,7 @@ return this.element.value;
 }
 return null;
 };//value function ends here
+
 //fillComboBox function starts here
 this.fillComboBox=(jsonObject)=>{
 if(this.element.nodeName!='SELECT') throw "fillComboBox can be called on SELECT type element";
@@ -422,7 +560,7 @@ this.element.appendChild(object);
 }; //fill comboBox function ends here
 }//class KLJRockElement ends here
 
-
+//AJAX call handler starts here 
 $$$.ajax=function(jsonObject){
 let url=jsonObject['url'];
 if(!url) throw "URL property is missing in call to ajax";
@@ -547,3 +685,4 @@ xmlHttpRequest.send(queryString);
 }
 }
 };
+//AJAX call Handler ends here
