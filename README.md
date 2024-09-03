@@ -1,4 +1,4 @@
-# HCJRock
+# KLJRock
 This a light-weight JavaScript framework which makes a web developer's life easier by providing many built-in functions using which the user can accomplish various tasks and make a responsive web sites easily and quickly. The framework simplifies a lot of the complicated things from JavaScript, like AJAX calls and DOM manipulation.
 
 ## Features
@@ -10,9 +10,9 @@ This a light-weight JavaScript framework which makes a web developer's life easi
 
 ## How to setup this Framework?
 
-At First, you need to download HCJRock.js file and place it in some js folder. Now include that HCJRock.js in you html file.
+At First, you need to download KLJRock.js file and place it in some js folder. Now include that KLJRock.js in you html file.
 
-```<script src='js/HCJRock.js'></script>```
+```<script src='js/KLJRock.js'></script>```
 
 Now you are all set to use the framework:
 
@@ -21,98 +21,95 @@ Now you are all set to use the framework:
 ### Modal view
 
 ```
-<!doctype html>
-<html lang='en'>
-<head>
-<meta charset='utf-8'>
-<title>AJAX Examples</title>
-<script src='js/HCJRock.js'></script>
-<script>
-function modalLoader()
-{
-listOfComponents=document.getElementsByTagName("*");
-var modal;
-var i;
-for(i=0;i<listOfComponents.length;i++)
-{
-if(listOfComponents[i].hasAttribute('forModal'))
-{
-if(listOfComponents[i].getAttribute('forModal')=='true')
-{
-listOfComponents[i].setAttribute('forModal','false');
-modal=new Modal(listOfComponents[i]);
-$$$.model.modals[$$$.model.modals.length]=modal;
-i--;
-}
-}
-}
-}
-
-function abOpened()
-{
-alert('Modal with ab opened');
-}
-function abClosed()
-{
-alert("Modal with ab will be closed");
-}
-
-function pqOpened()
-{
-alert('Modal with pq opened');
-}
-function pqClosed()
-{
-alert("Modal with pq will be closed");
-}
-
-
+//KLJRock modal user script starts here
 function createModal1()
 {
-var modal=$$$.model.modals[0];
-modal.afterOpening=abOpened;
-modal.afterClosing=abClosed;
-$$$('ab').show();
+$$$.modals.show("ab");
 }
-
-function abBeforeOpening()
+function createModal2()
 {
-alert('Modal with ab is about to be opened');
-return true;
+$$$.modals.show("cd");
 }
-
-function abBeforeClosing()
+function xyz()
 {
-alert('Modal with ab is about to be closed');
-return true;
+alert(document.getElementById("myTextBox"));
 }
-$$$.onDocumentLoaded(modalLoader);
-</script>
-</head>
-<body>
-<button onclick='createModal1()'>First Modal</button>
-<div id='ab' style='display:none' forModal='true' header='some heading' footer='some footer' size='500x500' closeButton='true' maskColor='#000000'
-modalBackgroundColor='#F3FFFF'
-afterOpening='abOpened()'
-afterClosing='abClosed()'
-beforeOpening='abBeforeOpening()'
-beforeClosing='abBeforeClosing()'
->
+//KLJRock Modal user script ends here
 
-<table id='pqr'>
-<tr><td>Whatever 1</td><td>Whatever 1</td><td>Whatever 1</td><td>Whatever 1</td><td>Whatever 1</td><td>Whatever 1</td><td>Whatever 1</td><td>Whatever 1</td></tr>
-<tr><td>Whatever 2</td><td>Whatever 22</td><td>Whatever 1</td><td>Whatever 1</td><td>Whatever 1</td><td>Whatever 1</td><td>Whatever 1</td><td>Whatever 1</td></tr>
-<tr><td>Whatever 3</td><td>Whatever 33</td><td>Whatever 1</td><td>Whatever 1</td><td>Whatever 1</td><td>Whatever 1</td><td>Whatever 1</td><td>Whatever 1</td></tr>
-<tr><td>Whatever 4</td><td>Whatever 44</td><td>Whatever 1</td><td>Whatever 1</td><td>Whatever 1</td><td>Whatever 1</td><td>Whatever 1</td><td>Whatever 1</td></tr>
-<tr><td>Whatever 5</td><td>Whatever 55</td><td>Whatever 1</td><td>Whatever 1</td><td>Whatever 1</td><td>Whatever 1</td><td>Whatever 1</td><td>Whatever 1</td></tr>
-<tr><td>Whatever 6</td><td>Whatever 66</td><td>Whatever 1</td><td>Whatever 1</td><td>Whatever 1</td><td>Whatever 1</td><td>Whatever 1</td><td>Whatever 1</td></tr>
-<tr><td>Whatever 7</td><td>Whatever 77</td><td>Whatever 1</td><td>Whatever 1</td><td>Whatever 1</td><td>Whatever 1</td><td>Whatever 1</td><td>Whatever 1</td></tr>
-<tr><td>Whatever 8</td><td>Whatever 88</td><td>Whatever 1</td><td>Whatever 1</td><td>Whatever 1</td><td>Whatever 1</td><td>Whatever 1</td><td>Whatever 1</td></tr>
-</table>
+
+<!-- KLJRock Modal testing part -->
+<h1>KLJRock Modal example</h1><br>
+<button type='button' onClick='createModal1()'>show first modal</button>
+<button type='button' onClick='createModal2()'>show Second modal</button>
+<div id='ab' style='display:none' areaClose="true" forModal="true" size="450x300" header="Some heding" footer="Some footer" maskColor="#7C7B7B" modalBackgroundColor="white" closeButton="True" afterOpening=abOpened() beforeOpening=abBeforeOpening() afterClosing=abClosed() beforeClosing=abBeforeClosing()>
+<h1>god is great</h1>
+<input type='text' id='myTextBox' value="Great"><br>
+One kiss is all it takes
+Fallin' in love with me
+Possibilities
+I look like all you need
+Let me take the night, I love real easy
+And I know that you'll still wanna see me
+On the Sunday morning, music real loud
+Let me love you while the moon is still out
+Something in you, lit up heaven in meThe feeling won't let me sleep'Cause I'm lost in the way you move, the way you feel
+One kiss is all it takes
+Fallin' in love with me
+Possibilities
+I look like all you need
+One kiss is all it takes
+Fallin' in love with me
+Possibilities
+I look like all you need
+One
+One
+One
+One
+I just wanna feel your skin on mine
+Feel your eyes do the exploring
+Passion in the message when you smile
+Take my time
+Something in you lit up heaven in me
+The feeling won't let me sleep
+'Cause I'm lost in the way you move, the way you feel
+One kiss is all it takes
+Fallin' in love with me
+Possibilities
+I look like all you need
+One kiss is all it takes
+Fallin' in love with me
+Possibilities
+I look like all you need
+One
+One
+One
+One
+See a wonderland in your eyes
+Might need your company tonight
+Something in you lit up heaven in me
+The feeling won't let me sleep
+'Cause I'm lost in the way you move, the way you feel
+One kiss is all it takes
+Fallin' in love with me
+Possibilities
+I look like all you need
+One kiss is all it takes
+Fallin' in love with me
+Possibilities
+I look like all you need
+One
+One
+One
+One
 </div>
-
-</body>
-</html>
+<div id='pqr' style='display:none' areaClose="true" forModal="false">
+<h1>I am here the big dog big steper</h1>
+</div>
+<div id='cd' style='display:none' areaClose="false" forModal="true">
+<h1>Ujjain is the city of gods</h1>
+</div>
+<button type='button' onclick='xyz()'>xyz</button>
+<!--KLJRock modal part ends here -->
 ```
 
 **Output**
@@ -122,182 +119,54 @@ ________________________________________________________________________________
 ### Grid View
 
 ```
-<!doctype html>
-<html lang='en'>
-<head>
-<meta charset='utf-8'>
-<title>AJAX Examples</title>
-<script src='js/HCJRock.js'></script>
-<style>
-.hcjrock_hcgrid_header_division
-{
-overflow-x: hidden;
-overflow-y: hidden;
-width: 309px;
+//KLJRockGrid user script starts here
+function populateEmployees(){
+var employees=null;
+$$$.ajax({
+"url" : "servletOneEmployee",
+//"url" : "servletOne",
+"methodType" : "GET",
+"success" : function(responseData){
+employees=JSON.parse(responseData);
+$$$.model.grid=new Grid('mainDivision','dataTableId',employees,2);
+},
+"failure":function(){
+alert('Something wrong');
 }
-
-.hcjrock_hcgrid_body_division
-{
-overflow-x: scroll;
-overflow-y: scroll;
-height: 300px;
-width: 317px;
-}
-
-.hcjrock_hcgrid_pagination
-{
-margin-top:10px;
-}
-
-.hcjrock_hcgrid_pagination td
-{
-width: 20px;
-text-align: center;
-}
-
-.hcjrock_hcgrid_pagination a {
-background-color: pink;
-color:black;
-padding: 1px 5px;
-text-decoration: none;
-text-transform: uppercase;
-}
-
-.hcjrock_hcgrid_head
-{
-border: 1px groove green'
-border-bottom: 0px;
-border-spacing: 0px;
-border-collapse: collapse;
-background: lightgray;
-width:750px;
-}
-
-.hcjrock_hcgrid_head td
-{
-border-left: 1px groove red;
-border-right: 1px groove red;
-border-top: 1px groove red;
-border-bottom: 0px groove red;
-width: 50px;
-text-align: right;
-}
-
-.hcjrock_hcgrid_head td+td
-{
-width: 100px;
-text-align: left;
-}
-
-.hcjrock_hcgrid_head td+td+td
-{
-width=150px;
-text-align: left;
-}
-
-.hcjrock_hcgrid_head td+td+td+td
-{
-width=150px;
-text-align: left;
-}
-
-.hcjrock_hcgrid_head td+td+td+td+td
-{
-width=150px;
-text-align: left;
-}
-
-.hcjrock_hcgrid_body
-{
-border: 1px groove green'
-border-spacing: 0px;
-border-collapse: collapse;
-width:750px;
-}
-
-.hcjrock_hcgrid_body td
-{
-border: 1px groove red;
-width: 50px;
-text-align: right;
-}
-.hcjrock_hcgrid_body td+td
-{
-width: 100px;
-text-align: left;
-}
-.hcjrock_hcgrid_body td+td+td
-{
-width=150px;
-text-align: left;
-}
-.hcjrock_hcgrid_body td+td+td+td
-{
-width=150px;
-text-align: left;
-}
-.hcjrock_hcgrid_body td+td+td+td+td
-{
-width=150px;
-text-align: left;
-}
-</style>
-<script>
-class Student
-{
-constructor(rollNumber,name,nameOfMother,nameOfFather)
-{
-this.rollNumber=rollNumber;
-this.name=name;
-this.nameOfMother=nameOfMother;
-this.nameOfFather=nameOfFather;
-}
-}
-
-function gridLoader()
-{
-var hcjrock_hcgrid_header_division=document.querySelector('.hcjrock_hcgrid_header_division');
-var hcjrock_hcgrid_body_division=document.querySelector('.hcjrock_hcgrid_body_division');
-hcjrock_hcgrid_body_division.addEventListener('scroll',function(){
-hcjrock_hcgrid_header_division.scrollLeft=hcjrock_hcgrid_body_division.scrollLeft;
 });
+}
+$$$.onDocumentLoaded(function(){
+populateEmployees();
+});
+//KLJRockGrid user script ends here
 
-var i;
-var students=new Array();
-for(i=0;i<=1000;i++)
-{
-students.push(new Student(i,i+"Name",i+"Mother",i+"Father"));
-}
-$$$.model.grid=new Grid('dataTable','dataTablePagination',students,15);
-}
-$$$.onDocumentLoaded(gridLoader);
-</script>
-</head>
-<body>
-<div class='somestyle'>
-<div class='hcjrock_hcgrid_header_division'>
-<table class='hcjrock_hcgrid_head'>
+<!-- KLJRock grid part starts here -->
+<h1>KLJRock Grid example</h1><br>
+<div id='mainDivision' class='someClass'>
+<div class="kljrock_klgrid_header_division">
+<table id='headingId'>
 <tr>
-<td>S.No.</td>
-<td>Roll Number.</td>
-<td>Name.</td>
-<td>Father Name.</td>
-<td>Mother Name.</td>
+<td>S.NO</td>
+<td>Roll.No</td>
+<td>Name</td>
+<td>Designation Id.</td>
+<td>Designation</t>
+<td>Date of Birth</td>
+<td>Gender</td>
+<td>Is Indian</td>
+<td>Basic Salary</td>
+<td>Pan Number</td>
+<td>Aadhar Card Number</td>
 </tr>
 </table>
 </div>
-<div class='hcjrock_hcgrid_body_division'>
-<table class='hcjrock_hcgrid_body' id='dataTable'>
-</table>
-</div>
-
-<div class='hcjrock_hcgrid_pagination_division'>
-<table class='hcjrock_hcgrid_pagination' id='dataTablePagination'>
+<div class="kljrock_klgrid_body_division">
+<table  id="dataTableId">
 </table>
 </div>
 </div>
 </body>
-</html>
+<!-- KLJRock grid part ends here -->
 ```
 **Output**
 ![grid_view](https://user-images.githubusercontent.com/55887060/116878640-a5ab5500-abed-11eb-901e-ddeff6a24803.PNG)
@@ -305,141 +174,70 @@ ________________________________________________________________________________
 
 ### Accordian-Pane
 ```
-<!doctype html>
-<html lang='en'>
-<head>
-<meta charset='utf-8'>
-<style>
-.div {
-width: 97%;
-
-border: 5px solid gray;
-margin: 0;
-}
-.heading
-{
-color: white;
-background-color: #222124;
-}
-
-</style>
-<title>AJAX Examples</title>
-<script src='js/HCJRock.js'></script>
-</head>
-<body>
+<!-- KLJRock accordian testing part -->
+<h1>KLJRock Accordian Example</h1>
 <div accordian="true">
-<h3 class='heading'>Heading 1</h3>
-<div id='abcdef' class='div'>
-Content 1 Content 1 Content 1 Content 1 Content 1 Content 1 Content 1 Content 1
-Content 1 Content 1 Content 1 Content 1 Content 1 Content 1 Content 1 Content 1
-Content 1 Content 1 Content 1 Content 1 Content 1 Content 1 Content 1 Content 1
-Content 1 Content 1 Content 1 Content 1 Content 1 Content 1 Content 1 Content 1
-Content 1 Content 1 Content 1 Content 1 Content 1 Content 1 Content 1 Content 1
-Content 1 Content 1 Content 1 Content 1 Content 1 Content 1 Content 1 Content 1
-Content 1 Content 1 Content 1 Content 1 Content 1 Content 1 Content 1 Content 1
-Content 1 Content 1 Content 1 Content 1 Content 1 Content 1 Content 1 Content 1
-Content 1 Content 1 Content 1 Content 1 Content 1 Content 1 Content 1 Content 1
-Content 1 Content 1 Content 1 Content 1 Content 1 Content 1 Content 1 Content 1
-Content 1 Content 1 Content 1 Content 1 Content 1 Content 1 Content 1 Content 1
-Content 1 Content 1 Content 1 Content 1 Content 1 Content 1 Content 1 Content 1
-Content 1 Content 1 Content 1 Content 1 Content 1 Content 1 Content 1 Content 1
-Content 1 Content 1 Content 1 Content 1 Content 1 Content 1 Content 1 Content 1
-Content 1 Content 1 Content 1 Content 1 Content 1 Content 1 Content 1 Content 1
-Content 1 Content 1 Content 1 Content 1 Content 1 Content 1 Content 1 Content 1
+<h3>Heading 1</h3>
+<div>
+Content 1 Content 1 Content 1 Content 1 Content 1 Content 1<br>
+Content 1 Content 1 Content 1 Content 1 Content 1 Content 1<br>
+Content 1 Content 1 Content 1 Content 1 Content 1 Content 1<br>
+Content 1 Content 1 Content 1 Content 1 Content 1 Content 1<br>
+Content 1 Content 1 Content 1 Content 1 Content 1 Content 1<br>
+Content 1 Content 1 Content 1 Content 1 Content 1 Content 1<br>
+Content 1 Content 1 Content 1 Content 1 Content 1 Content 1<br>
+Content 1 Content 1 Content 1 Content 1 Content 1 Content 1<br>
 </div>
-
-<h3 class='heading'>Heading 2</h3>
-<div class='div'>
-Content2 Content2 Content2 Content2 Content2 Content2 Content2 Content2 Content2
-Content2 Content2 Content2 Content2 Content2 Content2 Content2 Content2 Content2
-Content2 Content2 Content2 Content2 Content2 Content2 Content2 Content2 Content2
-Content2 Content2 Content2 Content2 Content2 Content2 Content2 Content2 Content2
-Content2 Content2 Content2 Content2 Content2 Content2 Content2 Content2 Content2
-Content2 Content2 Content2 Content2 Content2 Content2 Content2 Content2 Content2
-Content2 Content2 Content2 Content2 Content2 Content2 Content2 Content2 Content2
-Content2 Content2 Content2 Content2 Content2 Content2 Content2 Content2 Content2
-Content2 Content2 Content2 Content2 Content2 Content2 Content2 Content2 Content2
-Content2 Content2 Content2 Content2 Content2 Content2 Content2 Content2 Content2
-Content2 Content2 Content2 Content2 Content2 Content2 Content2 Content2 Content2 
+<h3>Heading 2</h3>
+<div>
+Content 2 Content 2 Content 2 Content 2 Content 2 Content 2<br>
+Content 2 Content 2 Content 2 Content 2 Content 2 Content 2<br>
+Content 2 Content 2 Content 2 Content 2 Content 2 Content 2<br>
+Content 2 Content 2 Content 2 Content 2 Content 2 Content 2<br>
+Content 2 Content 2 Content 2 Content 2 Content 2 Content 2<br>
+Content 2 Content 2 Content 2 Content 2 Content 2 Content 2<br>
+Content 2 Content 2 Content 2 Content 2 Content 2 Content 2<br>
 </div>
-
-<h3 class='heading'>Heading 3</h3>
-<div class='div'>
-Content 3 Content 3 Content 3 Content 3 Content 3 Content 3 Content 3 Content 3 Content 3
-Content 3 Content 3 Content 3 Content 3 Content 3 Content 3 Content 3 Content 3 Content 3
-Content 3 Content 3 Content 3 Content 3 Content 3 Content 3 Content 3 Content 3 Content 3
-Content 3 Content 3 Content 3 Content 3 Content 3 Content 3 Content 3 Content 3 Content 3
-Content 3 Content 3 Content 3 Content 3 Content 3 Content 3 Content 3 Content 3 Content 3
-Content 3 Content 3 Content 3 Content 3 Content 3 Content 3 Content 3 Content 3 Content 3
-Content 3 Content 3 Content 3 Content 3 Content 3 Content 3 Content 3 Content 3 Content 3
-Content 3 Content 3 Content 3 Content 3 Content 3 Content 3 Content 3 Content 3 Content 3
-Content 3 Content 3 Content 3 Content 3 Content 3 Content 3 Content 3 Content 3 Content 3
-Content 3 Content 3 Content 3 Content 3 Content 3 Content 3 Content 3 Content 3 Content 3
-Content 3 Content 3 Content 3 Content 3 Content 3 Content 3 Content 3 Content 3 Content 3
-Content 3 Content 3 Content 3 Content 3 Content 3 Content 3 Content 3 Content 3 Content 3
+<h3>Heading 3</h3>
+<div>
+Content 3 Content 3 Content 3 Content 3 Content 3 Content 3<br>
+Content 3 Content 3 Content 3 Content 3 Content 3 Content 3<br>
+Content 3 Content 3 Content 3 Content 3 Content 3 Content 3<br>
+Content 3 Content 3 Content 3 Content 3 Content 3 Content 3<br>
 </div>
 </div>
-
-
-
 
 <div accordian="true">
-<h3 class='heading'>Heading 1000</h3>
-<div id='abcdef' class='div'>
-Content 1 Content 1 Content 1 Content 1 Content 1 Content 1 Content 1 Content 1
-Content 1 Content 1 Content 1 Content 1 Content 1 Content 1 Content 1 Content 1
-Content 1 Content 1 Content 1 Content 1 Content 1 Content 1 Content 1 Content 1
-Content 1 Content 1 Content 1 Content 1 Content 1 Content 1 Content 1 Content 1
-Content 1 Content 1 Content 1 Content 1 Content 1 Content 1 Content 1 Content 1
-Content 1 Content 1 Content 1 Content 1 Content 1 Content 1 Content 1 Content 1
-Content 1 Content 1 Content 1 Content 1 Content 1 Content 1 Content 1 Content 1
-Content 1 Content 1 Content 1 Content 1 Content 1 Content 1 Content 1 Content 1
-Content 1 Content 1 Content 1 Content 1 Content 1 Content 1 Content 1 Content 1
-Content 1 Content 1 Content 1 Content 1 Content 1 Content 1 Content 1 Content 1
-Content 1 Content 1 Content 1 Content 1 Content 1 Content 1 Content 1 Content 1
-Content 1 Content 1 Content 1 Content 1 Content 1 Content 1 Content 1 Content 1
-Content 1 Content 1 Content 1 Content 1 Content 1 Content 1 Content 1 Content 1
-Content 1 Content 1 Content 1 Content 1 Content 1 Content 1 Content 1 Content 1
-Content 1 Content 1 Content 1 Content 1 Content 1 Content 1 Content 1 Content 1
-Content 1 Content 1 Content 1 Content 1 Content 1 Content 1 Content 1 Content 1
+<h3>Heading 1000</h3>
+<div>
+Content 111 Content 1 Content 1 Content 1 Content 1 Content 1<br>
+Content 111 Content 1 Content 1 Content 1 Content 1 Content 1<br>
+Content 111 Content 1 Content 1 Content 1 Content 1 Content 1<br>
+Content 111 Content 1 Content 1 Content 1 Content 1 Content 1<br>
+Content 111 Content 1 Content 1 Content 1 Content 1 Content 1<br>
+Content 1 Content 1 Content 1 Content 1 Content 1 Content 1<br>
+Content 1 Content 1 Content 1 Content 1 Content 1 Content 1<br>
+Content 1 Content 1 Content 1 Content 1 Content 1 Content 1<br>
 </div>
-
-<h3 class='heading'>Heading 2000</h3>
-<div class='div'>
-Content2 Content2 Content2 Content2 Content2 Content2 Content2 Content2 Content2
-Content2 Content2 Content2 Content2 Content2 Content2 Content2 Content2 Content2
-Content2 Content2 Content2 Content2 Content2 Content2 Content2 Content2 Content2
-Content2 Content2 Content2 Content2 Content2 Content2 Content2 Content2 Content2
-Content2 Content2 Content2 Content2 Content2 Content2 Content2 Content2 Content2
-Content2 Content2 Content2 Content2 Content2 Content2 Content2 Content2 Content2
-Content2 Content2 Content2 Content2 Content2 Content2 Content2 Content2 Content2
-Content2 Content2 Content2 Content2 Content2 Content2 Content2 Content2 Content2
-Content2 Content2 Content2 Content2 Content2 Content2 Content2 Content2 Content2
-Content2 Content2 Content2 Content2 Content2 Content2 Content2 Content2 Content2
-Content2 Content2 Content2 Content2 Content2 Content2 Content2 Content2 Content2 
+<h3>Heading 2000</h3>
+<div>
+Content 222 Content 2 Content 2 Content 2 Content 2 Content 2<br>
+Content 222 Content 2 Content 2 Content 2 Content 2 Content 2<br>
+Content 222 Content 2 Content 2 Content 2 Content 2 Content 2<br>
+Content 2 Content 2 Content 2 Content 2 Content 2 Content 2<br>
+Content 2 Content 2 Content 2 Content 2 Content 2 Content 2<br>
+Content 2 Content 2 Content 2 Content 2 Content 2 Content 2<br>
+Content 2 Content 2 Content 2 Content 2 Content 2 Content 2<br>
 </div>
-
-<h3 class='heading'>Heading 3000</h3>
-<div class='div'>
-Content 3 Content 3 Content 3 Content 3 Content 3 Content 3 Content 3 Content 3 Content 3
-Content 3 Content 3 Content 3 Content 3 Content 3 Content 3 Content 3 Content 3 Content 3
-Content 3 Content 3 Content 3 Content 3 Content 3 Content 3 Content 3 Content 3 Content 3
-Content 3 Content 3 Content 3 Content 3 Content 3 Content 3 Content 3 Content 3 Content 3
-Content 3 Content 3 Content 3 Content 3 Content 3 Content 3 Content 3 Content 3 Content 3
-Content 3 Content 3 Content 3 Content 3 Content 3 Content 3 Content 3 Content 3 Content 3
-Content 3 Content 3 Content 3 Content 3 Content 3 Content 3 Content 3 Content 3 Content 3
-Content 3 Content 3 Content 3 Content 3 Content 3 Content 3 Content 3 Content 3 Content 3
-Content 3 Content 3 Content 3 Content 3 Content 3 Content 3 Content 3 Content 3 Content 3
-Content 3 Content 3 Content 3 Content 3 Content 3 Content 3 Content 3 Content 3 Content 3
-Content 3 Content 3 Content 3 Content 3 Content 3 Content 3 Content 3 Content 3 Content 3
-Content 3 Content 3 Content 3 Content 3 Content 3 Content 3 Content 3 Content 3 Content 3
+<h3>Heading 3000</h3>
+<div>
+Content 3233 Content 3 Content 3 Content 3 Content 3 Content 3<br>
+Content 3333 Content 3 Content 3 Content 3 Content 3 Content 3<br>
+Content 3333 Content 3 Content 3 Content 3 Content 3 Content 3<br>
+Content 3 Content 3 Content 3 Content 3 Content 3 Content 3<br>
 </div>
 </div>
-
-
-
-</body>
-</html>
+<!-- KLJRock Accordian testing part -->
 ```
 **Output**
 ![accordian-Pane](https://user-images.githubusercontent.com/55887060/116878205-05553080-abed-11eb-8bf1-f2b9e607ae5f.PNG)
@@ -447,100 +245,77 @@ ________________________________________________________________________________
 
 ### Form Validation
 ```
-<!doctype html>
-<html lang='en'>
-<head>
-<title>Ajax Example</title>
-<script src='js/JRock.js'></script>
-<script>
-function doSomething()
+//KLJRock validation user script starts here 
+function doSomething(formId)
 {
-return $$$.validateForm("someForm").isValid({
-"nm":{
-"required":true,
-"maxLength":20,
-"errorPane":"nmErrorSection",
-"errors":{
-"required":"Name required",
-"maxLength":"Name cannot exceed 20 characters"
+return $$$.isValid(formId,{
+//user have to specify there name which they provided at the time of tag creation example name='name',address='address' in input tag and according to this specify key for validation "name":{jsonObject}
+"name" : {
+"required" : true,
+"max-length" : 20,
+"error-pane" : "nmErrorSection",
+"errors" : {
+"required" : "Name Required",
+"max-length" : "Name cannot exceed 20 characters"
 }
 },
-"ad":{
-"required":true,
-"errorPane":"adErrorSection",
-"errors":{
-"required":"Address required"
+"address" : {
+"required" : true,
+"error-pane" : "adErrorSection",
+"errors" : {
+"required" : "Address Required"
 }
 },
-"ct":{
-"invalid":-1,
-"errorPane":"ctErrorSection",
-"errors":{
-"invalid":"Select city"
+"city" : {
+"Invalid" : -1,
+"error-pane" : "ctErrorSection",
+"errors" : {
+"Invalid" : "Select City"
 }
 },
-"gender":{
-"required":true,
-"errorPane":"genderErrorSection",
-"errors":{
-"required":"select gender"
+"gender" : {
+"required" : true,
+"error-pane" : "genderErrorSection",
+"errors" : {
+"required" : "Select Gender"
 }
 },
-"agree":{
-"requiredState":true,
-"displayAlert":true,
-"errors":{
-"requiredState":"Select I agree checkbox"
+"agree" : {
+"required-state" : true,
+"display-alert" : true,
+"errors" : {
+"required-state" : "Select I agree Checkbox"
 }
 }
 });
 }
-</script>
-</head>
-<body>
-<h1>HCJRock validations</h1>
-<form id='someForm' onsubmit='return doSomething()'>
-<table>
-<tbody>
-<tr>
-<td>Name</td> 
-<td><input type='text' name='nm' id='nm'><span id='nmErrorSection' style='color:red'></span></td> 
-</tr>
-<tr>
-<td>Address</td> 
-<td><textarea id='ad' name='ad'></textarea><span id='adErrorSection' style='color:red'></span></td> 
-</tr>
-<tr>
-<td>Select city</td> 
-<td>
-<select id='ct' name='ct'>
-<option value='-1'>select city</option>
+//KLJRock validation user script ends here
+
+<!-- KLJRock validation testing part -->
+<h1>KLJRock Validitions</h1>
+<form id='someForm' action='watever' onsubmit='return doSomething("someForm")'>
+Name <input type='text' id='nm' name='name'>
+<span id='nmErrorSection'></span><br>
+Address <textarea name='address' id='address'></textarea>
+<span id='adErrorSection'></span><br>
+Select City
+<select id='ct' name='city'>
+<option value='-1'>&lt;select City&gt;</option>
 <option value='1'>Ujjain</option>
 <option value='2'>Dewas</option>
-<option value='3'>Indore</option>
+<option value='3'>Bhopal</option>
+<option value='4'>Indore</option>
 </select>
-<span id='ctErrorSection' style='color:red'></span><br>
-</td> 
-</tr>
-<tr>
-<td>
-Gender</td> 
-<td> Male <input type='radio' name='gender' id='ml' value='M'>&nbsp;&nbsp;&nbsp;Female <input type='radio' name='gender' id='fe' value='F'> 
-<span id='genderErrorSection' style='color:red'></span></td> 
-</tr>
-<tr>
-<td> <input type='checkbox' name='agree' id='ag' value='y'></td> 
-<td>  I agree?</td> 
-</tr>
-<tr>
-<br>
-<td> <button type='submit'>Registor</button></td> 
-</tr>
-</tbody>
-</table>
+<span id='ctErrorSection'></span><br>
+Gender &nbsp;&nbsp;&nbsp;&nbsp;
+Male<input type='radio' id='ml' name='gender' value='M'>
+&nbsp;&nbsp;&nbsp;&nbsp;
+Female<input type='radio' id='fe' name='gender' value='F'>
+<span id='genderErrorSection'></span><br>
+I Agree<input type='checkBox' id='' name='agree' value='Y'><br>
+<button type='submit'>Register</button>
 </form>
-</body>
-</html>
+<!-- KLJRock validation testing part -->
 ```
 **Output**
 
@@ -549,47 +324,40 @@ ________________________________________________________________________________
 
 ### AJAX Call & Filling Combo Box
 ```
-<!Doctype html>
-<html lang='en'>
-<head>
-<meta charset='utf-8'>
-<title>Ajax Example</title>
-<script src='js/HCJRock.js'></script>
-<script>
+//KLJRock fillComboBox user script starts here
 function populateDesignations()
 {
 $$$.ajax({
-"url":"servletOne",
-"methodType":"GET",
-"success":function(responseData){
-var designations=JSON.parse(responseData);
-alert(designations);
-var designationComboBox=document.getElementById("designationCode");
-var obj;
-for(var i=0;i<designations.length;i++)
-{
-obj=document.createElement("option");
-obj.value=designations[i].code;
-obj.text=designations[i].title;
-designationComboBox.appendChild(obj);
-}
+"url" : "servletOne",
+"methodType" : "GET",
+"success" : function(responseData){
+let designations=JSON.parse(responseData);
+//let titleString="title";
+$$$("designationsComboBox").fillComboBox({
+"dataSource" : designations,
+"text" : "title",
+"value" : "code",
+"firstOption" : {
+"text" : "<select desigantion>",
+"value" : "-1"
+}});
 },
 "failure":function(){
-alert("Some problem");
+alert('some problem');
 }
 });
 }
-window.addEventListener('load',populateDesignations);
-</script>
-</head>
-<body>
-<h1>Get type request</h1>
-<select id='designationCode'></select>
-<br>
-<br>
-<a href='index.html'>Home</a>
-</body>
-</html>
+$$$.onDocumentLoaded(function(){
+populateDesignations();
+});
+//KLJRock fillComboBox user script ends here
+
+<!--KLJRock fillComboBox part -->
+<h1>KLJRock Get type example with JSON and AJAX call</h1><br>
+Designations
+<select id='designationsComboBox'>
+</select>
+<!-- fill ComboBox part ends here -->
 ```
 **Output**
 
