@@ -13,6 +13,122 @@ $$$.model={
 "modals" : [],
 "grid" : "null"
 };
+//********************************************************************************************
+//KLJRock Validations part starts here
+$$$.isValid=(formId,jsonObject)=>{
+let validateForm=document.getElementById(formId);
+var jsonObjectKeys=Object.keys(jsonObject);
+if(jsonObjectKeys.length==0) return true;
+let name;
+let address;
+let city;
+let gender;
+let agree;
+for(let i=0;i<jsonObjectKeys.length;i++)
+{
+for(let j=0;j<validateForm.children.length;j++)
+{
+if(typeof validateForm.children[j].getAttribute("name")=="object") continue;
+if(validateForm.children[j].getAttribute("name").toUpperCase()==jsonObjectKeys[i].toUpperCase())
+{
+if(validateForm.children[j].getAttribute("name").toUpperCase()=="NAME") name=document.getElementsByName("name")[0];
+if(validateForm.children[j].getAttribute("name").toUpperCase()=="ADDRESS") address=document.getElementsByName("address")[0];
+if(validateForm.children[j].getAttribute("name").toUpperCase()=="GENDER") gender=document.getElementsByName("gender");
+if(validateForm.children[j].getAttribute("name").toUpperCase()=="CITY") city=document.getElementsByName("city")[0];
+if(validateForm.children[j].getAttribute("name").toUpperCase()=="AGREE") agree=document.getElementsByName("agree")[0];
+break;
+}
+}
+}
+let errorSection;
+let errorObject;
+let valid=true;
+if(name)
+{
+if(jsonObject['name']['required'])
+{
+if(typeof jsonObject['name']['errors'] !="object") throw "errors Object is required";
+errorObject=jsonObject['name']['errors']; 
+if(typeof jsonObject['name']['error-pane'] != "string") throw "errorSection is required";
+errorSection=document.getElementById(jsonObject['name']['error-pane']);
+errorSection.innerHTML="";
+if(name.value.length==0)
+{
+errorSection.innerHTML=errorObject['required'];
+valid=false;
+}
+else if(name.value.length>jsonObject['name']['max-length'])
+{
+errorSection.innerHTML=errorObject['max-length'];
+valid=false;
+}
+}
+}
+if(address)
+{
+if(jsonObject['address']['required'])
+{
+if(typeof jsonObject['address']['error-pane'] != "string") throw "errorSection is required";
+errorSection=document.getElementById(jsonObject['address']['error-pane']);
+errorSection.innerHTML='';
+if(address.value.length==0)
+{
+if(typeof jsonObject['address']['errors'] != "object") throw "errors Object is required";
+errorObject=jsonObject['address']['errors']; 
+errorSection.innerHTML=errorObject['required'];
+valid=false;
+}
+}
+}
+if(city)
+{
+if(city.value==jsonObject['city']['Invalid'])
+{
+if(typeof jsonObject['city']['error-pane'] != "string") throw "errorSection is required";
+errorSection=document.getElementById(jsonObject['city']['error-pane']);
+errorSection.innerHTML='';
+if(typeof jsonObject['city']['errors'] != "object") throw "errors Object is required";
+errorObject=jsonObject['city']['errors']; 
+errorSection.innerHTML=errorObject['Invalid'];
+valid=false;
+}
+}
+if(gender)
+{
+if(jsonObject['gender']['required'])
+{
+if(typeof jsonObject['gender']['error-pane'] != "string") throw "errorSection is required";
+errorSection=document.getElementById(jsonObject['gender']['error-pane']);
+errorSection.innerHTML='';
+if(gender[0].checked==false && gender[1].checked==false)
+{
+if(typeof jsonObject['gender']['errors'] != "object") throw "errors Object is required";
+errorObject=jsonObject['gender']['errors']; 
+errorSection.innerHTML=errorObject['required'];
+valid=false;
+}
+}
+}
+if(agree)
+{
+if(jsonObject['agree']['required-state'])
+{
+if(agree.checked==false)
+{
+if(jsonObject['agree']['display-alert'])
+{
+if(typeof jsonObject['agree']['errors'] != "object") throw "errors Object is required";
+errorObject=jsonObject['agree']['errors']; 
+alert(errorObject['required-state']);
+valid=false;
+}
+}
+}
+}
+return valid;
+};
+//KLJRock Validations part ends here
+//********************************************************************************************
 //KLJRockGrid part starts here
 class Grid
 {
@@ -30,7 +146,6 @@ this.numberOfPaginationControls=5;
 this.update(); //for updating table
 this.updatePagination()
 }
-
 createPaginationDivision(){
 this.dataTablePaginationDivision=document.createElement('div');
 this.dataTablePaginationDivision.classList.add('kljrock_klgrid_pagination_division');
@@ -39,7 +154,6 @@ this.dataTablePagination.classList.add("kljrock_klgrid_pagination");
 this.dataTablePaginationDivision.appendChild(this.dataTablePagination);
 document.getElementById(this.mainDivision).appendChild(this.dataTablePaginationDivision);
 }
-
 setPage(pageNumber){
 this.pageNumber=pageNumber;
 this.update();
@@ -69,7 +183,6 @@ for(let j=0;j<values.length;j++)
 {
 td=document.createElement('td'); 
 td.innerHTML=values[j];
-
 tr.appendChild(td);
 }
 dataTableId.appendChild(tr);
@@ -88,7 +201,6 @@ obj.setPage(pageNumber);
 //let dataTablePaginationId=document.getElementById(this.dataTablePaginationId);
 let dataTablePaginationId=this.dataTablePagination;
 while(dataTablePaginationId.rows.length>0) dataTablePaginationId.deleteRow(0);
-
 let td;
 let anchor;
 let tr=document.createElement('tr');
@@ -138,6 +250,7 @@ dataTablePaginationId.appendChild(tr);
 }
 }
 //KLJRockGrid part ends here
+//*********************************************************************************************
 
 //modals part starts here
 $$$.modals={};
@@ -192,8 +305,8 @@ kljrock_klgrid_header_division.scrollLeft=kljrock_klgrid_body_division.scrollLef
 });
 //setting up grid part starts here
 };//inintFramework ends here
-
-
+//loding imortent info and ds code ends here
+//*********************************************************************************************
 //modal specific code starts here
 $$$.modals.show=function(mid){
 let modal=null;
@@ -440,17 +553,15 @@ return true;
 window.addEventListener('load',function(){
 $$$.initFramework();
 });
-
 //Modal specifit code ends here
-
-//acordian specifit code ends here
+//*********************************************************************************************
+//acordian specifit code starts here
 $$$.acordianHeadingClicked=function(accordianIndex,panelIndex){
 if($$$.model.accordians[accordianIndex].expandedIndex!=-1) $$$.model.accordians[accordianIndex].panels[$$$.model.accordians[accordianIndex].expandedIndex].style.display='none';
 //panels[panelIndex+1].style.display='inline'; or block
 $$$.model.accordians[accordianIndex].panels[panelIndex+1].style.display=$$$.model.accordians[accordianIndex].panels[panelIndex+1].oldDisplay;
 $$$.model.accordians[accordianIndex].expandedIndex=panelIndex+1;
 };
-
 
 $$$.toAccordian=(accord)=>{
 let expandedIndex=-1;
@@ -482,11 +593,10 @@ $$$.model.accordians[accordianIndex]={
 "panels" : panels,
 "expandedIndex" : -1
 };
-
 }; 
 //toAccordianFunction Ends here
-
-
+//*********************************************************************************************
+//filComboBox releted code starts here
 function KLJRockElement(element)
 {
 this.element=element;
@@ -559,7 +669,8 @@ this.element.appendChild(object);
 }
 }; //fill comboBox function ends here
 }//class KLJRockElement ends here
-
+//fillComboBox releted code ends here
+//********************************************************************************************
 //AJAX call handler starts here 
 $$$.ajax=function(jsonObject){
 let url=jsonObject['url'];

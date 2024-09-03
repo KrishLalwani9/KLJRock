@@ -1,11 +1,10 @@
 <!DOCTYPE HTML>
 <html lang='en'>
 <head>
-<title>KLJRock</title>
+<title>KLJRock Testing</title>
 <meta charset='utf-8'>
 <!-- user specific styling of KLJRockGrid-->
 <style>
-
 .kljrock_klgrid_header_division{
 overflow-x : hidden;
 overflow-y : hidden;
@@ -17,7 +16,6 @@ overflow-y : scroll;
 width : 700px;
 height : 450px; 
 }
-
 
 .kljrock_klgrid_head{
 border : 1px groove green;
@@ -75,7 +73,6 @@ text-decoration : none;
 text-transform : uppercase;
 }
 
-
 .someClass{
 width : 900px;
 height : 550px;
@@ -88,13 +85,22 @@ overflow : auto;
 <script src='/KLJRock/js/KLJRock.js'></script>
 <link rel='stylesheet' type='text/css' href='/KLJRock/css/KLJRock.css'>
 <script>
-//KLJRock user script starts here 
-//for modal
+//KLJRock user script starts here
+//KLJRockAccordian user script starts here
+/* Done it by another way
+$$$.onDocumentLoaded(
+function(){   //by this onDocumentLoaded funciton runs and populate this function on onStartup array of modal object
+$$$.toAccordian('mymy');
+$$$.toAccordian('gojo');
+});
+*/
+//KLJRockAccordian user script ends here
+//***************************************************************** 
+//KLJRock modal user script starts here
 function createModal1()
 {
 $$$.modals.show("ab");
 }
-
 function createModal2()
 {
 $$$.modals.show("cd");
@@ -103,41 +109,9 @@ function xyz()
 {
 alert(document.getElementById("myTextBox"));
 }
-//forModal user script ends here
-
-//for accordian
-/* Done it by another way
-$$$.onDocumentLoaded(
-function(){   //by this onDocumentLoaded funciton runs and populate this function on onStartup array of modal object
-$$$.toAccordian('mymy');
-$$$.toAccordian('gojo');
-});
-*/
-
-//KLJRockGrid user script starts here
-
-function populateEmployees(){
-var employees=null;
-$$$.ajax({
-"url" : "servletOneEmployee",
-//"url" : "servletOne",
-"methodType" : "GET",
-"success" : function(responseData){
-employees=JSON.parse(responseData);
-$$$.model.grid=new Grid('mainDivision','dataTableId',employees,2);
-},
-"failure":function(){
-alert('Something wrong');
-}
-});
-}
-$$$.onDocumentLoaded(function(){
-populateEmployees();
-});
-//KLJRockGrid user script ends here
-
-//for fillComboBox
-
+//KLJRock Modal user script ends here
+//*****************************************************************
+//KLJRock fillComboBox user script ends here
 function populateDesignations()
 {
 $$$.ajax({
@@ -163,10 +137,81 @@ alert('some problem');
 $$$.onDocumentLoaded(function(){
 populateDesignations();
 });
+//KLJRock fillComboBox user script ends here
+//*****************************************************************
+//KLJRockGrid user script starts here
+function populateEmployees(){
+var employees=null;
+$$$.ajax({
+"url" : "servletOneEmployee",
+//"url" : "servletOne",
+"methodType" : "GET",
+"success" : function(responseData){
+employees=JSON.parse(responseData);
+$$$.model.grid=new Grid('mainDivision','dataTableId',employees,2);
+},
+"failure":function(){
+alert('Something wrong');
+}
+});
+}
+$$$.onDocumentLoaded(function(){
+populateEmployees();
+});
+//KLJRockGrid user script ends here
+//*****************************************************************
+//KLJRock validation user script starts here 
+function doSomething(formId)
+{
+return $$$.isValid(formId,{
+//user have to specify there name which they provided at the time of tag creation example name='name',address='address' in input tag and according to this specify key for validation "name":{jsonObject}
+"name" : {
+"required" : true,
+"max-length" : 20,
+"error-pane" : "nmErrorSection",
+"errors" : {
+"required" : "Name Required",
+"max-length" : "Name cannot exceed 20 characters"
+}
+},
+"address" : {
+"required" : true,
+"error-pane" : "adErrorSection",
+"errors" : {
+"required" : "Address Required"
+}
+},
+"city" : {
+"Invalid" : -1,
+"error-pane" : "ctErrorSection",
+"errors" : {
+"Invalid" : "Select City"
+}
+},
+"gender" : {
+"required" : true,
+"error-pane" : "genderErrorSection",
+"errors" : {
+"required" : "Select Gender"
+}
+},
+"agree" : {
+"required-state" : true,
+"display-alert" : true,
+"errors" : {
+"required-state" : "Select I agree Checkbox"
+}
+}
+});
+}
+//KLJRock validation user script ends here
+//KLJRock user script ends here
 </script>
 </head>
 <body>
-<!-- accordian testing part -->
+<h1>KLJRock Testing starts here</h1>
+<!-- KLJRock accordian testing part -->
+<h1>KLJRock Accordian Example</h1>
 <div accordian="true">
 <h3>Heading 1</h3>
 <div>
@@ -196,7 +241,6 @@ Content 3 Content 3 Content 3 Content 3 Content 3 Content 3<br>
 Content 3 Content 3 Content 3 Content 3 Content 3 Content 3<br>
 Content 3 Content 3 Content 3 Content 3 Content 3 Content 3<br>
 </div>
-
 </div>
 
 <div accordian="true">
@@ -228,10 +272,11 @@ Content 3333 Content 3 Content 3 Content 3 Content 3 Content 3<br>
 Content 3333 Content 3 Content 3 Content 3 Content 3 Content 3<br>
 Content 3 Content 3 Content 3 Content 3 Content 3 Content 3<br>
 </div>
-
 </div>
+<!-- KLJRock Accordian testing part -->
 
-<!-- Modal testing part -->
+<!-- KLJRock Modal testing part -->
+<h1>KLJRock Modal example</h1><br>
 <button type='button' onClick='createModal1()'>show first modal</button>
 <button type='button' onClick='createModal2()'>show Second modal</button>
 <div id='ab' style='display:none' areaClose="true" forModal="true" size="450x300" header="Some heding" footer="Some footer" maskColor="#7C7B7B" modalBackgroundColor="white" closeButton="True" afterOpening=abOpened() beforeOpening=abBeforeOpening() afterClosing=abClosed() beforeClosing=abBeforeClosing()>
@@ -302,16 +347,17 @@ One
 <h1>Ujjain is the city of gods</h1>
 </div>
 <button type='button' onclick='xyz()'>xyz</button>
-<!-- modal part ends here -->
+<!--KLJRock modal part ends here -->
 
-<!-- fillComboBox part -->
-<h1>Get type example with json</h1><br>
+<!--KLJRock fillComboBox part -->
+<h1>KLJRock Get type example with JSON and AJAX call</h1><br>
 Designations
 <select id='designationsComboBox'>
 </select>
 <!-- fill ComboBox part ends here -->
 
 <!-- KLJRock grid part starts here -->
+<h1>KLJRock Grid example</h1><br>
 <div id='mainDivision' class='someClass'>
 <div class="kljrock_klgrid_header_division">
 <table id='headingId'>
@@ -338,5 +384,30 @@ Designations
 </body>
 <!-- KLJRock grid part ends here -->
 
+<!-- KLJRock validation testing part -->
+<h1>KLJRock Validitions</h1>
+<form id='someForm' action='watever' onsubmit='return doSomething("someForm")'>
+Name <input type='text' id='nm' name='name'>
+<span id='nmErrorSection'></span><br>
+Address <textarea name='address' id='address'></textarea>
+<span id='adErrorSection'></span><br>
+Select City
+<select id='ct' name='city'>
+<option value='-1'>&lt;select City&gt;</option>
+<option value='1'>Ujjain</option>
+<option value='2'>Dewas</option>
+<option value='3'>Bhopal</option>
+<option value='4'>Indore</option>
+</select>
+<span id='ctErrorSection'></span><br>
+Gender &nbsp;&nbsp;&nbsp;&nbsp;
+Male<input type='radio' id='ml' name='gender' value='M'>
+&nbsp;&nbsp;&nbsp;&nbsp;
+Female<input type='radio' id='fe' name='gender' value='F'>
+<span id='genderErrorSection'></span><br>
+I Agree<input type='checkBox' id='' name='agree' value='Y'><br>
+<button type='submit'>Register</button>
+</form>
+<!-- KLJRock validation testing part -->
 </body>
 </html>
